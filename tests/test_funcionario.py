@@ -29,3 +29,15 @@ class TestFuncionario(unittest.TestCase):
         self.assertEqual(2, len(self.__funcionario.projetos))
         self.assertIn(projeto1, self.__funcionario.projetos)
         self.assertIn(projeto2, self.__funcionario.projetos)
+
+    def test_nao_adicionar_projeto_nulo_no_funcionario(self):
+        with self.assertRaises(ValueError):
+            self.__funcionario.adicionar_projeto(None)
+            
+    def test_nao_adicionar_projeto_duplicado_no_funcionario(self):
+        projeto = Projeto("INE5455")
+        
+        self.__funcionario.adicionar_projeto(projeto)
+        
+        with self.assertRaises(ValueError):
+            self.__funcionario.adicionar_projeto(projeto)
