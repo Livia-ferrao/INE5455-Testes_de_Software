@@ -50,3 +50,14 @@ class TestEmpresa(unittest.TestCase):
         self.__empresa.adicionar_projeto(projeto)
         self.assertEqual(1, len(self.__empresa.projetos))
         self.assertIn(projeto, self.__empresa.projetos)
+
+    def test_adicionar_multiplos_projetos_na_empresa(self):
+        projeto1 = Projeto("INE5455")
+        projeto2 = Projeto("INE5429")
+
+        self.__empresa.adicionar_projeto(projeto1)
+        self.__empresa.adicionar_projeto(projeto2)
+
+        self.assertEqual(2, len(self.__empresa.projetos))
+        self.assertIn(projeto1, self.__empresa.projetos)
+        self.assertIn(projeto2, self.__empresa.projetos)
