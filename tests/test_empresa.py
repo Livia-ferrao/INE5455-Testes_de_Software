@@ -66,7 +66,6 @@ class TestEmpresa(unittest.TestCase):
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_projeto(None)
             
-            
     def test_nao_adicionar_projeto_duplicado_na_empresa(self):
         projeto1 = Projeto("INE5455")
         

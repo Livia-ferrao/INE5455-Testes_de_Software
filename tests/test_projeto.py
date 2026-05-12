@@ -7,3 +7,6 @@ class TestProjeto(unittest.TestCase):
 
     def test_criar_projeto_com_nome_valido(self):
         self.assertEqual("INE5455", self.__projeto.nome)
+        
+    def test_criar_projeto_sem_funcionarios(self):
+        self.assertEqual(0, len(self.__projeto.funcionarios))
