@@ -18,3 +18,14 @@ class TestProjeto(unittest.TestCase):
 
         self.assertEqual(1, len(self.__projeto.funcionarios))
         self.assertIn(funcionario, self.__projeto.funcionarios)
+        
+    def test_adicionar_multiplos_funcionarios_no_projeto(self):
+        funcionario1 = Funcionario("José")
+        funcionario2 = Funcionario("Maria")
+
+        self.__projeto.adicionar_funcionario(funcionario1)
+        self.__projeto.adicionar_funcionario(funcionario2)
+
+        self.assertEqual(2, len(self.__projeto.funcionarios))
+        self.assertIn(funcionario1, self.__projeto.funcionarios)
+        self.assertIn(funcionario2, self.__projeto.funcionarios)
