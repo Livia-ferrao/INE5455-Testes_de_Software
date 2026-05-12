@@ -61,3 +61,7 @@ class TestEmpresa(unittest.TestCase):
         self.assertEqual(2, len(self.__empresa.projetos))
         self.assertIn(projeto1, self.__empresa.projetos)
         self.assertIn(projeto2, self.__empresa.projetos)
+        
+    def test_nao_adicionar_projeto_nulo_na_empresa(self):
+        with self.assertRaises(ValueError):
+            self.__empresa.adicionar_projeto(None)
