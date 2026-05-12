@@ -11,3 +11,6 @@ class Empresa:
             raise ValueError("Funcionário já está na lista.")
 
         self.funcionarios.append(funcionario)
+        
+    def adicionar_projeto(self, projeto):
+        self.projetos.append(projeto)
