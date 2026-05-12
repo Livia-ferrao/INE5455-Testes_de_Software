@@ -7,13 +7,13 @@ class TestEmpresa(unittest.TestCase):
         self.__empresa = Empresa("W")
 
     def test_criar_empresa_com_nome_valido(self):
-        self.assertEqual(self.__empresa.nome, "W")
+        self.assertEqual("W", self.__empresa.nome)
         
     def test_criar_empresa_sem_funcionarios(self):
-        self.assertEqual(len(self.__empresa.funcionarios), 0)
+        self.assertEqual(0, len(self.__empresa.funcionarios))
 
     def test_criar_empresa_sem_projetos(self):
-        self.assertEqual(len(self.__empresa.projetos), 0)
+        self.assertEqual(0, len(self.__empresa.projetos))
         
     def test_adicionar_funcionario_na_empresa(self):
         funcionario = Funcionario("José")
