@@ -2,7 +2,8 @@ import unittest
 from projeto import Projeto
 
 class TestProjeto(unittest.TestCase):
+    def setUp(self):
+        self.__projeto = Projeto("INE5455")
+
     def test_criar_projeto_com_nome_valido(self):
-        nome = "INE5455"
-        projeto = Projeto(nome)
-        self.assertEqual(nome, projeto.nome)
+        self.assertEqual("INE5455", self.__projeto.nome)
