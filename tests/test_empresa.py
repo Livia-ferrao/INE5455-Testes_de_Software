@@ -65,3 +65,12 @@ class TestEmpresa(unittest.TestCase):
     def test_nao_adicionar_projeto_nulo_na_empresa(self):
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_projeto(None)
+            
+            
+    def test_nao_adicionar_projeto_duplicado_na_empresa(self):
+        projeto1 = Projeto("INE5455")
+        
+        self.__empresa.adicionar_projeto(projeto1)
+        
+        with self.assertRaises(ValueError):
+            self.__empresa.adicionar_projeto(projeto1)
