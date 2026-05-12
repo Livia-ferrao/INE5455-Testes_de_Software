@@ -11,3 +11,6 @@ class TestEmpresa(unittest.TestCase):
         empresa = Empresa("W")
         self.assertEqual(len(empresa.funcionarios), 0)
 
+    def test_criar_empresa_sem_projetos(self):
+        empresa = Empresa("W")
+        self.assertEqual(len(empresa.projetos), 0)
