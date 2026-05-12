@@ -35,4 +35,12 @@ class TestEmpresa(unittest.TestCase):
     def test_nao_adicionar_funcionario_nulo_na_empresa(self):
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_funcionario(None)
+            
+    def test_nao_adicionar_funcionario_duplicado_na_empresa(self):
+        funcionario1 = Funcionario("José")
+        
+        self.__empresa.adicionar_funcionario(funcionario1)
+        
+        with self.assertRaises(ValueError):
+            self.__empresa.adicionar_funcionario(funcionario1)
         
