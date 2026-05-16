@@ -3,6 +3,7 @@ from empresa import Empresa
 from funcionario import Funcionario
 from projeto import Projeto
 
+
 class TestEmpresa(unittest.TestCase):
     def setUp(self):
         self.__empresa = Empresa("W")
@@ -19,7 +20,7 @@ class TestEmpresa(unittest.TestCase):
 
     def test_criar_empresa_sem_projetos(self):
         self.assertEqual(0, len(self.__empresa.projetos))
-        
+
     def test_adicionar_funcionario_na_empresa(self):
         funcionario = Funcionario("José")
         self.__empresa.adicionar_funcionario(funcionario)
@@ -40,15 +41,15 @@ class TestEmpresa(unittest.TestCase):
     def test_nao_adicionar_funcionario_nulo_na_empresa(self):
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_funcionario(None)
-            
+
     def test_nao_adicionar_funcionario_duplicado_na_empresa(self):
         funcionario1 = Funcionario("José")
-        
+
         self.__empresa.adicionar_funcionario(funcionario1)
-        
+
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_funcionario(funcionario1)
-        
+
     def test_adicionar_projeto_na_empresa(self):
         projeto = Projeto("INE5455")
         self.__empresa.adicionar_projeto(projeto)
@@ -65,16 +66,16 @@ class TestEmpresa(unittest.TestCase):
         self.assertEqual(2, len(self.__empresa.projetos))
         self.assertIn(projeto1, self.__empresa.projetos)
         self.assertIn(projeto2, self.__empresa.projetos)
-        
+
     def test_nao_adicionar_projeto_nulo_na_empresa(self):
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_projeto(None)
-            
+
     def test_nao_adicionar_projeto_duplicado_na_empresa(self):
         projeto1 = Projeto("INE5455")
-        
+
         self.__empresa.adicionar_projeto(projeto1)
-        
+
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_projeto(projeto1)
 
