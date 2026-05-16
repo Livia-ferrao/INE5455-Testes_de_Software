@@ -23,6 +23,8 @@ class Empresa:
     def vincular_funcionario_projeto(self, funcionario, projeto):
         if funcionario not in self.funcionarios:
             raise ValueError("Funcionário não pertence a esta empresa.")
+        if projeto not in self.projetos:
+            raise ValueError("Projeto não pertence a esta empresa")
 
         projeto.adicionar_funcionario(funcionario)
         funcionario.adicionar_projeto(projeto)
