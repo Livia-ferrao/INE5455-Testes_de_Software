@@ -73,3 +73,15 @@ class TestEmpresa(unittest.TestCase):
         
         with self.assertRaises(ValueError):
             self.__empresa.adicionar_projeto(projeto1)
+
+    def test_vincular_funcionario_ao_projeto(self):
+        funcionario = Funcionario("José")
+        projeto = Projeto("INE5455")
+
+        self.__empresa.adicionar_funcionario(funcionario)
+        self.__empresa.adicionar_projeto(projeto)
+        self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
+
+        # Verifica os dois lados do relacionamento
+        self.assertIn(funcionario, projeto.funcionarios)
+        self.assertIn(projeto, funcionario.projetos)
