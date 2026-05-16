@@ -9,7 +9,11 @@ class TestEmpresa(unittest.TestCase):
 
     def test_criar_empresa_com_nome_valido(self):
         self.assertEqual("W", self.__empresa.nome)
-        
+
+    def test_nao_criar_empresa_com_nome_vazio(self):
+        with self.assertRaises(ValueError):
+            Empresa("")
+
     def test_criar_empresa_sem_funcionarios(self):
         self.assertEqual(0, len(self.__empresa.funcionarios))
 
