@@ -1,6 +1,9 @@
 class Empresa:
     def __init__(self, nome):
-        self.__nome = nome
+        if not nome or not str(nome).strip():
+            raise ValueError("O nome não pode ser vazio ou nulo.")
+
+        self.__nome = nome.strip()
         self.__funcionarios = []
         self.__projetos = []
 
