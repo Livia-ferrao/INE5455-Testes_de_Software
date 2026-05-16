@@ -93,3 +93,11 @@ class TestEmpresa(unittest.TestCase):
         self.__empresa.adicionar_projeto(projeto)
         with self.assertRaises(ValueError):
             self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
+
+    def test_vincular_projeto_nao_cadastrado_ao_funcionario(self):
+        funcionario = Funcionario("José")
+        projeto = Projeto("INE5455")
+
+        self.__empresa.adicionar_funcionario(funcionario)
+        with self.assertRaises(ValueError):
+            self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
