@@ -19,3 +19,7 @@ class Empresa:
             raise ValueError("Projeto já está na lista.")
 
         self.projetos.append(projeto)
+
+    def vincular_funcionario_projeto(self, funcionario, projeto):
+        projeto.adicionar_funcionario(funcionario)
+        funcionario.adicionar_projeto(projeto)
