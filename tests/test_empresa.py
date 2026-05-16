@@ -85,3 +85,11 @@ class TestEmpresa(unittest.TestCase):
         # Verifica os dois lados do relacionamento
         self.assertIn(funcionario, projeto.funcionarios)
         self.assertIn(projeto, funcionario.projetos)
+
+    def test_vincular_funcionario_nao_cadastrado_ao_projeto(self):
+        funcionario = Funcionario("José")
+        projeto = Projeto("INE5455")
+
+        self.__empresa.adicionar_projeto(projeto)
+        with self.assertRaises(ValueError):
+            self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
