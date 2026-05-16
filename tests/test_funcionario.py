@@ -8,7 +8,11 @@ class TestFuncionario(unittest.TestCase):
 
     def test_criar_funcionario_com_nome_valido(self):
         self.assertEqual("José", self.__funcionario.nome)
-        
+
+    def test_nao_criar_funcionario_com_nome_vazio(self):
+        with self.assertRaises(ValueError):
+            Funcionario("")
+
     def test_criar_funcionario_sem_projetos(self):
         self.assertEqual(0, len(self.__funcionario.projetos))
         
