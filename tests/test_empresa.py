@@ -101,3 +101,14 @@ class TestEmpresa(unittest.TestCase):
         self.__empresa.adicionar_funcionario(funcionario)
         with self.assertRaises(ValueError):
             self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
+
+    def test_nao_vincular_funcionario_ao_mesmo_projeto_duas_vezes(self):
+        funcionario = Funcionario("José")
+        projeto = Projeto("INE5455")
+
+        self.__empresa.adicionar_funcionario(funcionario)
+        self.__empresa.adicionar_projeto(projeto)
+        self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
+
+        with self.assertRaises(ValueError):
+            self.__empresa.vincular_funcionario_projeto(funcionario, projeto)
