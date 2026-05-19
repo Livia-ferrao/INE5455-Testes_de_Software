@@ -54,6 +54,8 @@ class TestProjeto(unittest.TestCase):
     
     def test_adicionar_ocorrencia_ao_projeto(self):
         jose = Funcionario("José")
+        self.__projeto.adicionar_funcionario(jose)
+
         ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
         self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
 
@@ -62,6 +64,7 @@ class TestProjeto(unittest.TestCase):
         
     def test_adicionar_multiplas_ocorrencias_no_projeto(self):
         jose = Funcionario("José")
+        self.__projeto.adicionar_funcionario(jose)
 
         ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
         ocorrencia_tarefa_emails = Ocorrencia(chave="TASK_001", resumo="Configurar envio de emails", responsavel=jose, prioridade=Prioridade.ALTA, tipo=Tipo.TAREFA)
@@ -85,9 +88,18 @@ class TestProjeto(unittest.TestCase):
 
     def test_nao_adicionar_ocorrencia_duplicada_no_projeto(self):
         jose = Funcionario("José")
+        self.__projeto.adicionar_funcionario(jose)
+
         ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
        
         self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+    def test_nao_adicionar_ocorrencia_funcionario_responsavel_nao_pertence_projeto(self):
+        jose = Funcionario("José")
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
 
         with self.assertRaises(ValueError):
             self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
