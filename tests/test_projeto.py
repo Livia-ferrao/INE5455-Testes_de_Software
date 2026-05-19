@@ -1,6 +1,8 @@
 import unittest
 from projeto import Projeto
 from funcionario import Funcionario
+from ocorrencia import Ocorrencia
+from enums import Prioridade, Tipo
 
 
 class TestProjeto(unittest.TestCase):
@@ -46,3 +48,46 @@ class TestProjeto(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             self.__projeto.adicionar_funcionario(funcionario)
+
+    def test_criar_projeto_sem_ocorrencias(self):
+        self.assertEqual(0, len(self.__projeto.ocorrencias))
+    
+    def test_adicionar_ocorrencia_ao_projeto(self):
+        jose = Funcionario("José")
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        self.assertEqual(1, len(self.__projeto.ocorrencias))
+        self.assertIn(ocorrencia_bug_login, self.__projeto.ocorrencias)
+        
+    def test_adicionar_multiplas_ocorrencias_no_projeto(self):
+        jose = Funcionario("José")
+
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        ocorrencia_tarefa_emails = Ocorrencia(chave="TASK_001", resumo="Configurar envio de emails", responsavel=jose, prioridade=Prioridade.ALTA, tipo=Tipo.TAREFA)
+        ocorrencia_refatoracao_excecoes = Ocorrencia(chave="REF_001", resumo="Padronizar exceções", responsavel=jose, prioridade=Prioridade.BAIXA, tipo=Tipo.REFATORACAO)
+        ocorrencia_data_incorreta = Ocorrencia(chave="BUG_002", resumo="Data aparece em formato incorreto", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_tarefa_emails)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_refatoracao_excecoes)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_data_incorreta)
+
+        self.assertEqual(4, len(self.__projeto.ocorrencias))
+        self.assertIn(ocorrencia_bug_login, self.__projeto.ocorrencias)
+        self.assertIn(ocorrencia_tarefa_emails, self.__projeto.ocorrencias)
+        self.assertIn(ocorrencia_refatoracao_excecoes, self.__projeto.ocorrencias)
+        self.assertIn(ocorrencia_data_incorreta, self.__projeto.ocorrencias)
+        
+    def test_nao_adicionar_ocorrencia_nula_no_projeto(self):
+        with self.assertRaises(ValueError):
+            self.__projeto.adicionar_ocorrencia(None)
+
+    def test_nao_adicionar_ocorrencia_duplicada_no_projeto(self):
+        jose = Funcionario("José")
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+       
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
