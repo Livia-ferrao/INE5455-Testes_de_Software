@@ -9,3 +9,7 @@ class TestEmpresa(unittest.TestCase):
     def test_cria_ocorrencia_com_chave_e_resumo(self):
         self.assertEqual("ID1", self.__ocorrencia.chave)
         self.assertEqual("Ocorrencia referente ao ID1", self.__ocorrencia.resumo)
+        
+    def test_nao_cria_ocorrencia_com_chave_vazia(self):
+        with self.assertRaises(ValueError):
+            Ocorrencia(chave="", resumo="Nao vazio")
