@@ -50,4 +50,6 @@ class Ocorrencia:
         return self.__status
 
     def fechar_ocorrencia(self):
+        if self.__status != Estado.ABERTO:
+            raise ValueError("A ocorrência já está fechada.")
         self.__status = Estado.FECHADO
