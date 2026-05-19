@@ -13,3 +13,7 @@ class TestEmpresa(unittest.TestCase):
     def test_nao_cria_ocorrencia_com_chave_vazia(self):
         with self.assertRaises(ValueError):
             Ocorrencia(chave="", resumo="Nao vazio")
+
+    def test_nao_cria_ocorrencia_com_resumo_vazio(self):
+        with self.assertRaises(ValueError):
+            Ocorrencia(chave="ID0", resumo="")
