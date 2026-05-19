@@ -1,3 +1,6 @@
+from ocorrencia import Ocorrencia
+
+
 class Projeto:
     def __init__(self, nome):
         if not nome or not str(nome).strip():
@@ -27,10 +30,13 @@ class Projeto:
 
         self.__funcionarios.append(funcionario)
         
-    def adicionar_ocorrencia(self, ocorrencia):
+    def adicionar_ocorrencia(self, ocorrencia: Ocorrencia):
         if not ocorrencia:
             raise ValueError("A ocorrência não pode ser nula.")
         if ocorrencia in self.__ocorrencias:
             raise ValueError("Ocorrência já está na lista.")
+            
+        if ocorrencia.responsavel not in self.funcionarios:
+            raise ValueError("O funcionário responsável pela ocorrência deve estar cadastrado no projeto.")
 
         self.__ocorrencias.append(ocorrencia)
