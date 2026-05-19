@@ -42,6 +42,11 @@ class TestOcorrencia(unittest.TestCase):
         with self.assertRaises(ValueError):
             Ocorrencia(chave="ID0", resumo="Nao vazio", responsavel=self.__jose, prioridade=Prioridade.BAIXA, tipo=None)
 
-    def test_fechar_ocorrencia(self):
+    def test_fechar_ocorrencia_que_estava_aberta(self):
         self.__ocorrencia.fechar_ocorrencia()
         self.assertEqual(Estado.FECHADO, self.__ocorrencia.status)
+        
+    def test_nao_fechar_ocorrencia_que_ja_estava_fechada(self):
+        self.__ocorrencia.fechar_ocorrencia()
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.fechar_ocorrencia()
