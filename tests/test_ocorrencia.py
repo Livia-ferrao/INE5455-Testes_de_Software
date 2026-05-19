@@ -1,9 +1,9 @@
 import unittest
 from ocorrencia import Ocorrencia
 from funcionario import Funcionario
-from enums import Prioridade, Tipo
+from enums import Prioridade, Tipo, Estado
 
-class TestEmpresa(unittest.TestCase):
+class TestOcorrencia(unittest.TestCase):
     def setUp(self):
         self.__jose = Funcionario("José")
         self.__ocorrencia = Ocorrencia(
@@ -20,6 +20,7 @@ class TestEmpresa(unittest.TestCase):
         self.assertEqual(self.__jose, self.__ocorrencia.responsavel)
         self.assertEqual(Prioridade.ALTA, self.__ocorrencia.prioridade)
         self.assertEqual(Tipo.BUG, self.__ocorrencia.tipo)
+        self.assertEqual(Estado.ABERTO, self.__ocorrencia.status)
 
     def test_nao_cria_ocorrencia_com_chave_vazia(self):
         with self.assertRaises(ValueError):
@@ -40,3 +41,7 @@ class TestEmpresa(unittest.TestCase):
     def test_nao_cria_ocorrencia_com_tipo_vazio(self):
         with self.assertRaises(ValueError):
             Ocorrencia(chave="ID0", resumo="Nao vazio", responsavel=self.__jose, prioridade=Prioridade.BAIXA, tipo=None)
+
+    def test_fechar_ocorrencia(self):
+        self.__ocorrencia.fechar_ocorrencia()
+        self.assertEqual(Estado.FECHADO, self.__ocorrencia.status)
