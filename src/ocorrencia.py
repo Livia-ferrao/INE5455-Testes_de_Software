@@ -48,3 +48,6 @@ class Ocorrencia:
     @property
     def status(self):
         return self.__status
+
+    def fechar_ocorrencia(self):
+        self.__status = Estado.FECHADO
