@@ -51,3 +51,18 @@ class TestOcorrencia(unittest.TestCase):
         self.__ocorrencia.fechar()
         with self.assertRaises(ValueError):
             self.__ocorrencia.fechar()
+            
+    def test_alterar_prioridade_ocorrencia_aberta(self):
+        self.__ocorrencia.alterar_prioridade(Prioridade.MEDIA)
+
+        self.assertEqual(Prioridade.MEDIA, self.__ocorrencia.prioridade)
+
+    def test_nao_alterar_prioridade_ocorrencia_fechada(self):
+        self.__ocorrencia.fechar()
+
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.alterar_prioridade(Prioridade.MEDIA)
+
+    def test_nao_alterar_prioridade_para_nula(self):
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.alterar_prioridade(None)
