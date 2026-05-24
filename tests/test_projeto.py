@@ -115,3 +115,73 @@ class TestProjeto(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+            
+    def test_alterar_responsavel_ocorrencia(self):
+        jose = Funcionario("José")
+        maria = Funcionario("Maria")
+        self.__projeto.adicionar_funcionario(jose)
+        self.__projeto.adicionar_funcionario(maria)
+
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        self.__projeto.alterar_responsavel_ocorrencia(ocorrencia_bug_login, maria)
+
+        self.assertEqual(maria, ocorrencia_bug_login.responsavel)
+
+
+    def test_nao_alterar_responsavel_ocorrencia_nula(self):
+        maria = Funcionario("Maria")
+        self.__projeto.adicionar_funcionario(maria)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.alterar_responsavel_ocorrencia(None, maria)
+
+
+    def test_nao_alterar_responsavel_ocorrencia_que_nao_pertence_ao_projeto(self):
+        jose = Funcionario("José")
+        maria = Funcionario("Maria")
+        self.__projeto.adicionar_funcionario(jose)
+        self.__projeto.adicionar_funcionario(maria)
+
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.alterar_responsavel_ocorrencia(ocorrencia_bug_login, maria)
+
+    def test_nao_alterar_responsavel_para_nulo(self):
+        jose = Funcionario("José")
+        self.__projeto.adicionar_funcionario(jose)
+
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.alterar_responsavel_ocorrencia(ocorrencia_bug_login, None)
+
+    def test_nao_alterar_responsavel_para_funcionario_que_nao_pertence_ao_projeto(self):
+        jose = Funcionario("José")
+        maria = Funcionario("Maria")
+        self.__projeto.adicionar_funcionario(jose)
+
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.alterar_responsavel_ocorrencia(ocorrencia_bug_login, maria)
+
+
+    def test_nao_alterar_responsavel_quando_novo_responsavel_atingiu_limite(self):
+        jose = Funcionario("José")
+        maria = Funcionario("Maria")
+        self.__projeto.adicionar_funcionario(jose)
+        self.__projeto.adicionar_funcionario(maria)
+        maria.adicionar_projeto(self.__projeto)
+
+        criar_n_ocorrencias(maria, self.__projeto, 10)
+
+        ocorrencia_jose = Ocorrencia(chave="BUG_999", resumo="Erro do José", responsavel=jose, prioridade=Prioridade.ALTA, tipo=TipoOcorrencia.BUG)
+        self.__projeto.adicionar_ocorrencia(ocorrencia_jose)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.alterar_responsavel_ocorrencia(ocorrencia_jose, maria)
