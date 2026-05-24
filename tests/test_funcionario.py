@@ -1,7 +1,8 @@
 import unittest
 from funcionario import Funcionario
 from projeto import Projeto
-
+from ocorrencia import Ocorrencia
+from enums import Prioridade, TipoOcorrencia
 
 class TestFuncionario(unittest.TestCase):
     def setUp(self):
@@ -46,3 +47,27 @@ class TestFuncionario(unittest.TestCase):
 
         with self.assertRaises(ValueError):
             self.__funcionario.adicionar_projeto(projeto)
+            
+    def test_total_ocorrencias_abertas_funcionario(self):
+        projeto = Projeto("INE5455")
+        projeto.adicionar_funcionario(self.__funcionario)
+        self.__funcionario.adicionar_projeto(projeto)
+
+        ocorrencia1 = Ocorrencia(chave="BUG_001", resumo="Erro login", responsavel=self.__funcionario, prioridade=Prioridade.ALTA, tipo=TipoOcorrencia.BUG)
+        ocorrencia2 = Ocorrencia(chave="TASK_001", resumo="Criar tela", responsavel=self.__funcionario, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.TAREFA)
+
+        projeto.adicionar_ocorrencia(ocorrencia1)
+        projeto.adicionar_ocorrencia(ocorrencia2)
+
+        self.assertEqual(2, self.__funcionario.total_ocorrencias_abertas())
+        
+    def test_nao_contar_ocorrencias_fechadas(self):
+        projeto = Projeto("INE5455")
+        projeto.adicionar_funcionario(self.__funcionario)
+        self.__funcionario.adicionar_projeto(projeto)
+
+        ocorrencia = Ocorrencia(chave="BUG_001", resumo="Erro login", responsavel=self.__funcionario, prioridade=Prioridade.ALTA, tipo=TipoOcorrencia.BUG)
+        projeto.adicionar_ocorrencia(ocorrencia)
+        ocorrencia.fechar()
+
+        self.assertEqual(0, self.__funcionario.total_ocorrencias_abertas())
