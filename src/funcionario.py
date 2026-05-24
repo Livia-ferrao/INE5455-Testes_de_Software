@@ -5,6 +5,7 @@ class Funcionario:
 
         self.__nome = nome.strip()
         self.__projetos = []
+        self.__limite_ocorrencias_abertas = 10
 
     @property
     def nome(self):
@@ -31,3 +32,6 @@ class Funcionario:
                     total += 1
 
         return total
+
+    def atingiu_limite_ocorrencias(self):
+        return self.total_ocorrencias_abertas() >= self.__limite_ocorrencias_abertas

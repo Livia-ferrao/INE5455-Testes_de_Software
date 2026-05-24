@@ -1,7 +1,6 @@
 import unittest
 from ocorrencia import Ocorrencia
 from funcionario import Funcionario
-from projeto import Projeto
 from enums import Prioridade, TipoOcorrencia, Estado
 
 class TestOcorrencia(unittest.TestCase):

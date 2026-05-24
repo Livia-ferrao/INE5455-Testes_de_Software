@@ -71,3 +71,32 @@ class TestFuncionario(unittest.TestCase):
         ocorrencia.fechar()
 
         self.assertEqual(0, self.__funcionario.total_ocorrencias_abertas())
+        
+    
+    def test_funcionario_atingiu_limite_ocorrencias(self):
+        projeto = Projeto("INE5455")
+        projeto.adicionar_funcionario(self.__funcionario)
+        self.__funcionario.adicionar_projeto(projeto)
+        _criar_n_ocorrencias(self.__funcionario, projeto, 10)
+    
+        self.assertTrue(self.__funcionario.atingiu_limite_ocorrencias())
+
+    def test_funcionario_nao_atingiu_limite_ocorrencias(self):
+        projeto = Projeto("INE5455")
+        projeto.adicionar_funcionario(self.__funcionario)
+        self.__funcionario.adicionar_projeto(projeto)
+        _criar_n_ocorrencias(self.__funcionario, projeto, 6)
+
+        self.assertFalse(self.__funcionario.atingiu_limite_ocorrencias())
+
+
+def _criar_n_ocorrencias(funcionario, projeto, quantidade):
+    for i in range(quantidade):
+        ocorrencia = Ocorrencia(
+            chave=f"BUG_{i}",
+            resumo=f"Erro {i}",
+            responsavel=funcionario,
+            prioridade=Prioridade.ALTA,
+            tipo=TipoOcorrencia.BUG
+        )
+        projeto.adicionar_ocorrencia(ocorrencia)
