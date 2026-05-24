@@ -21,3 +21,13 @@ class Funcionario:
             raise ValueError("Projeto já está na lista.")
 
         self.__projetos.append(projeto)
+
+    def total_ocorrencias_abertas(self):
+        total = 0
+
+        for projeto in self.__projetos:
+            for ocorrencia in projeto.ocorrencias:
+                if ocorrencia.responsavel == self and ocorrencia.esta_aberta():
+                    total += 1
+
+        return total
