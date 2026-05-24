@@ -52,11 +52,8 @@ class Ocorrencia:
     def esta_aberta(self):
         return self.__estado == Estado.ABERTA
 
-    def esta_fechada(self):
-        return self.__estado == Estado.FECHADA
-
     def fechar(self):
-        if self.esta_fechada():
+        if self.__estado == Estado.FECHADA:
             raise ValueError("A ocorrência já está fechada.")
         self.__estado = Estado.FECHADA
 
@@ -64,7 +61,7 @@ class Ocorrencia:
         if nova_prioridade is None:
             raise ValueError("A nova prioridade não pode ser nula.")
 
-        if self.esta_fechada():
+        if self.__estado == Estado.FECHADA:
             raise ValueError("Não é possível alterar a prioridade de uma ocorrência fechada.")
 
         self.__prioridade = nova_prioridade
@@ -73,7 +70,7 @@ class Ocorrencia:
         if novo_responsavel is None:
             raise ValueError("O novo responsável não pode ser nulo.")
 
-        if self.esta_fechada():
+        if self.__estado == Estado.FECHADA:
             raise ValueError("Não é possível alterar o responsável de uma ocorrência fechada.")
         
         if novo_responsavel == self.__responsavel:
