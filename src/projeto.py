@@ -43,3 +43,21 @@ class Projeto:
             raise ValueError( "O funcionário responsável atingiu o limite de ocorrências abertas." )
 
         self.__ocorrencias.append(ocorrencia)
+        
+    def alterar_responsavel_ocorrencia(self, ocorrencia, novo_responsavel):
+        if ocorrencia is None:
+            raise ValueError("A ocorrência não pode ser nula.")
+
+        if ocorrencia not in self.__ocorrencias:
+            raise ValueError("A ocorrência não pertence ao projeto.")
+
+        if novo_responsavel is None:
+            raise ValueError("O novo responsável não pode ser nulo.")
+
+        if novo_responsavel not in self.__funcionarios:
+            raise ValueError( "O novo responsável deve participar do projeto.")
+
+        if novo_responsavel.atingiu_limite_ocorrencias():
+            raise ValueError("O novo responsável já atingiu o limite de ocorrências abertas.")
+
+        ocorrencia.alterar_responsavel(novo_responsavel)
