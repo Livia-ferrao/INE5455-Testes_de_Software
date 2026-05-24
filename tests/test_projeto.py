@@ -2,7 +2,7 @@ import unittest
 from projeto import Projeto
 from funcionario import Funcionario
 from ocorrencia import Ocorrencia
-from enums import Prioridade, Tipo
+from enums import Prioridade, TipoOcorrencia
 
 
 class TestProjeto(unittest.TestCase):
@@ -56,7 +56,7 @@ class TestProjeto(unittest.TestCase):
         jose = Funcionario("José")
         self.__projeto.adicionar_funcionario(jose)
 
-        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login",  responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
         self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
 
         self.assertEqual(1, len(self.__projeto.ocorrencias))
@@ -66,10 +66,10 @@ class TestProjeto(unittest.TestCase):
         jose = Funcionario("José")
         self.__projeto.adicionar_funcionario(jose)
 
-        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
-        ocorrencia_tarefa_emails = Ocorrencia(chave="TASK_001", resumo="Configurar envio de emails", responsavel=jose, prioridade=Prioridade.ALTA, tipo=Tipo.TAREFA)
-        ocorrencia_refatoracao_excecoes = Ocorrencia(chave="REF_001", resumo="Padronizar exceções", responsavel=jose, prioridade=Prioridade.BAIXA, tipo=Tipo.REFATORACAO)
-        ocorrencia_data_incorreta = Ocorrencia(chave="BUG_002", resumo="Data aparece em formato incorreto", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+        ocorrencia_tarefa_emails = Ocorrencia(chave="TASK_001", resumo="Configurar envio de emails", responsavel=jose, prioridade=Prioridade.ALTA, tipo=TipoOcorrencia.TAREFA)
+        ocorrencia_refatoracao_excecoes = Ocorrencia(chave="REF_001", resumo="Padronizar exceções", responsavel=jose, prioridade=Prioridade.BAIXA, tipo=TipoOcorrencia.REFATORACAO)
+        ocorrencia_data_incorreta = Ocorrencia(chave="BUG_002", resumo="Data aparece em formato incorreto", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
 
         self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
         self.__projeto.adicionar_ocorrencia(ocorrencia_tarefa_emails)
@@ -90,7 +90,7 @@ class TestProjeto(unittest.TestCase):
         jose = Funcionario("José")
         self.__projeto.adicionar_funcionario(jose)
 
-        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
        
         self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
 
@@ -99,7 +99,7 @@ class TestProjeto(unittest.TestCase):
 
     def test_nao_adicionar_ocorrencia_funcionario_responsavel_nao_pertence_projeto(self):
         jose = Funcionario("José")
-        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=Tipo.BUG)
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
 
         with self.assertRaises(ValueError):
             self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)

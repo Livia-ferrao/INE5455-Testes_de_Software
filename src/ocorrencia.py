@@ -1,8 +1,8 @@
-from enums import Estado, Prioridade, Tipo
+from enums import Estado, Prioridade, TipoOcorrencia
 from funcionario import Funcionario
 
 class Ocorrencia:
-    def __init__(self, chave: str, resumo: str, responsavel: Funcionario, prioridade: Prioridade, tipo: Tipo):
+    def __init__(self, chave: str, resumo: str, responsavel: Funcionario, prioridade: Prioridade, tipo: TipoOcorrencia):
         if not chave:
             raise ValueError("A chave não pode ser vazia ou nula.")
         
@@ -17,13 +17,13 @@ class Ocorrencia:
         
         if not tipo:
             raise ValueError("O tipo não pode ser vazio ou nulo.")
-        
+
         self.__chave = chave
         self.__resumo = resumo
         self.__responsavel = responsavel
         self.__prioridade = prioridade
         self.__tipo = tipo
-        self.__status = Estado.ABERTO
+        self.__estado = Estado.ABERTA
 
     @property
     def chave(self):
@@ -46,10 +46,16 @@ class Ocorrencia:
         return self.__tipo
     
     @property
-    def status(self):
-        return self.__status
+    def estado(self):
+        return self.__estado
 
-    def fechar_ocorrencia(self):
-        if self.__status != Estado.ABERTO:
+    def esta_aberta(self):
+        return self.__estado == Estado.ABERTA
+
+    def esta_fechada(self):
+        return self.__estado == Estado.FECHADA
+
+    def fechar(self):
+        if self.esta_fechada():
             raise ValueError("A ocorrência já está fechada.")
-        self.__status = Estado.FECHADO
+        self.__estado = Estado.FECHADA
