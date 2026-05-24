@@ -3,6 +3,7 @@ from projeto import Projeto
 from funcionario import Funcionario
 from ocorrencia import Ocorrencia
 from enums import Prioridade, TipoOcorrencia
+from helpers import criar_n_ocorrencias
 
 
 class TestProjeto(unittest.TestCase):
@@ -99,6 +100,17 @@ class TestProjeto(unittest.TestCase):
 
     def test_nao_adicionar_ocorrencia_funcionario_responsavel_nao_pertence_projeto(self):
         jose = Funcionario("José")
+        ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
+
+        with self.assertRaises(ValueError):
+            self.__projeto.adicionar_ocorrencia(ocorrencia_bug_login)
+
+    def test_nao_adicionar_ocorrencia_quando_funcionario_atingiu_limite(self):
+        jose = Funcionario("José")
+        self.__projeto.adicionar_funcionario(jose)
+        jose.adicionar_projeto(self.__projeto)
+
+        criar_n_ocorrencias(jose, self.__projeto, 10)
         ocorrencia_bug_login = Ocorrencia(chave="BUG_001", resumo="Erro ao realizar login", responsavel=jose, prioridade=Prioridade.MEDIA, tipo=TipoOcorrencia.BUG)
 
         with self.assertRaises(ValueError):

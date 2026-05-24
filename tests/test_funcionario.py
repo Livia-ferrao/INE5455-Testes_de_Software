@@ -3,6 +3,7 @@ from funcionario import Funcionario
 from projeto import Projeto
 from ocorrencia import Ocorrencia
 from enums import Prioridade, TipoOcorrencia
+from helpers import criar_n_ocorrencias
 
 class TestFuncionario(unittest.TestCase):
     def setUp(self):
@@ -77,7 +78,7 @@ class TestFuncionario(unittest.TestCase):
         projeto = Projeto("INE5455")
         projeto.adicionar_funcionario(self.__funcionario)
         self.__funcionario.adicionar_projeto(projeto)
-        _criar_n_ocorrencias(self.__funcionario, projeto, 10)
+        criar_n_ocorrencias(self.__funcionario, projeto, 10)
     
         self.assertTrue(self.__funcionario.atingiu_limite_ocorrencias())
 
@@ -85,18 +86,6 @@ class TestFuncionario(unittest.TestCase):
         projeto = Projeto("INE5455")
         projeto.adicionar_funcionario(self.__funcionario)
         self.__funcionario.adicionar_projeto(projeto)
-        _criar_n_ocorrencias(self.__funcionario, projeto, 6)
+        criar_n_ocorrencias(self.__funcionario, projeto, 6)
 
         self.assertFalse(self.__funcionario.atingiu_limite_ocorrencias())
-
-
-def _criar_n_ocorrencias(funcionario, projeto, quantidade):
-    for i in range(quantidade):
-        ocorrencia = Ocorrencia(
-            chave=f"BUG_{i}",
-            resumo=f"Erro {i}",
-            responsavel=funcionario,
-            prioridade=Prioridade.ALTA,
-            tipo=TipoOcorrencia.BUG
-        )
-        projeto.adicionar_ocorrencia(ocorrencia)
