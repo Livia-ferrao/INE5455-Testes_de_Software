@@ -59,3 +59,12 @@ class Ocorrencia:
         if self.esta_fechada():
             raise ValueError("A ocorrência já está fechada.")
         self.__estado = Estado.FECHADA
+
+    def alterar_prioridade(self, nova_prioridade):
+        if nova_prioridade is None:
+            raise ValueError("A nova prioridade não pode ser nula.")
+
+        if self.esta_fechada():
+            raise ValueError("Não é possível alterar a prioridade de uma ocorrência fechada.")
+
+        self.__prioridade = nova_prioridade
