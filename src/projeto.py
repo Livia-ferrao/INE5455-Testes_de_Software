@@ -38,5 +38,8 @@ class Projeto:
             
         if ocorrencia.responsavel not in self.funcionarios:
             raise ValueError("O funcionário responsável pela ocorrência deve estar cadastrado no projeto.")
+        
+        if ocorrencia.responsavel.atingiu_limite_ocorrencias():
+            raise ValueError( "O funcionário responsável atingiu o limite de ocorrências abertas." )
 
         self.__ocorrencias.append(ocorrencia)
