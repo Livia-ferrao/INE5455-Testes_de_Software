@@ -66,3 +66,24 @@ class TestOcorrencia(unittest.TestCase):
     def test_nao_alterar_prioridade_para_nula(self):
         with self.assertRaises(ValueError):
             self.__ocorrencia.alterar_prioridade(None)
+            
+    def test_alterar_responsavel_ocorrencia_aberta(self):
+        maria = Funcionario("Maria")
+        self.__ocorrencia.alterar_responsavel(maria)
+
+        self.assertEqual(maria, self.__ocorrencia.responsavel)
+
+    def test_nao_alterar_responsavel_para_nulo(self):
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.alterar_responsavel(None)
+
+    def test_nao_alterar_responsavel_ocorrencia_fechada(self):
+        maria = Funcionario("Maria")
+        self.__ocorrencia.fechar()
+
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.alterar_responsavel(maria)
+            
+    def test_nao_alterar_responsavel_para_mesmo_responsavel(self):
+        with self.assertRaises(ValueError):
+            self.__ocorrencia.alterar_responsavel(self.__jose)
